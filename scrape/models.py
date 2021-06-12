@@ -2,6 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class ScrapeManager(models.Manager):
+    def get_published(self):
+        return self.get_queryset().filter(publish=True)
+
+
 class Scrape(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     url = models.URLField(verbose_name="Link")
@@ -11,6 +16,7 @@ class Scrape(models.Model):
     stock = models.IntegerField(verbose_name='In Stock', default=0)
     publish = models.BooleanField(default=False)
     datetime = models.DateTimeField(auto_now_add=True)
+    objects = ScrapeManager()
 
     def __str__(self):
         return "{} - {}".format(self.title, self.size)

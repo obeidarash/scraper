@@ -4,11 +4,14 @@ from .forms import ScrapeForm
 from .models import Scrape
 import requests
 from bs4 import BeautifulSoup
+
+
 # import goslate
 
 
 @login_required(login_url='/admin')
 def scrape(request):
+    scrapes = Scrape.objects.get_published()
     scrape_form = ScrapeForm(request.POST or None)
     if scrape_form.is_valid():
         url = scrape_form.cleaned_data.get('url')
@@ -25,6 +28,7 @@ def scrape(request):
         redirect('scrape')
     context = {
         'title': 'Scraper - Test',
-        'scrape_form': scrape_form
+        'scrape_form': scrape_form,
+        'scrapes': scrapes
     }
     return render(request, 'home.html', context)

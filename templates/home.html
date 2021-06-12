@@ -19,7 +19,9 @@
             </form>
             <h3>List: </h3>
             <ul>
-                <li><a href="#">for fun</a></li>
+                {% for scrape in scrapes %}
+                <li><a href="#">{{ scrape.title }}</a></li>
+                {% endfor %}
             </ul>
         </div>
         <div class="col"></div>
