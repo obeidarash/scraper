@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from scrape.views import scrape
+from scrape.views import scrape, scrape_detail
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', scrape, name='scrape'),
+    path('scrape/<scrape_id>', scrape_detail, name='scrape_detail'),
 ]
 
 if settings.DEBUG:

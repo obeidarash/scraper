@@ -1,12 +1,27 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.views.generic import DetailView
 from .forms import ScrapeForm
 from .models import Scrape
 import requests
 from bs4 import BeautifulSoup
+import goslate
 
 
-# import goslate
+def translate_scrape_detail(title, color):
+    gos = goslate.Goslate()
+    title = gos.translate(title, 'fa')
+    color = gos.translate(color, 'fa')
+    return title, color
+
+
+@login_required(login_url='/admin')
+def scrape_detail(request, scrape_id):
+    scrape_det = Scrape.objects.get_published_by_id(scrape_id)
+    context = {
+        'scrape': scrape_det,
+    }
+    return render(request, 'scrape/scrape_detail.html', context)
 
 
 @login_required(login_url='/admin')

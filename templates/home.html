@@ -1,32 +1,16 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-</head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col"></div>
-        <div class="col">
-            <form action="" method="post">
-                {% csrf_token %}
-                <label for="{{ scrape_form.url.id_for_label }}">{{ scrape_form.url.label }}</label>
-                {{ scrape_form.url }}
-                <button type="submit" class="btn btn-primary form-control">Send</button>
-            </form>
-            <h3>List: </h3>
-            <ul>
-                {% for scrape in scrapes %}
-                <li><a href="#">{{ scrape.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="col"></div>
-    </div>
-</div>
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-</body>
-</html>
+{% extends 'shared/Main.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="{{ scrape_form.url.id_for_label }}">{{ scrape_form.url.label }}</label>
+        {{ scrape_form.url }}
+        <button type="submit" class="btn btn-primary form-control">Send</button>
+    </form>
+    <h3>List: </h3>
+    <ul>
+        {% for scrape in scrapes %}
+            <li><a href="{% url 'scrape_detail' scrape.id %}">{{ scrape.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

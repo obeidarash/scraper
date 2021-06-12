@@ -6,6 +6,9 @@ class ScrapeManager(models.Manager):
     def get_published(self):
         return self.get_queryset().filter(publish=True)
 
+    def get_published_by_id(self, scrape_id):
+        return self.get_queryset().filter(publish=True, id=scrape_id).first()
+
 
 class Scrape(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
