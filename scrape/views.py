@@ -1,18 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView
 from .forms import ScrapeForm
 from .models import Scrape
 import requests
 from bs4 import BeautifulSoup
-import goslate
-
-
-def translate_scrape_detail(title, color):
-    gos = goslate.Goslate()
-    title = gos.translate(title, 'fa')
-    color = gos.translate(color, 'fa')
-    return title, color
 
 
 @login_required(login_url='/admin')
