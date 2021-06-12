@@ -4,8 +4,6 @@ from .forms import ScrapeForm
 from .models import Scrape
 import requests
 from bs4 import BeautifulSoup
-
-
 # import goslate
 
 
@@ -25,7 +23,6 @@ def scrape(request):
         Scrape.objects.create(user=request.user, url=url, title=title, color=color, size=size)
         scrape_form = ScrapeForm()
         redirect('scrape')
-
     context = {
         'title': 'Scraper - Test',
         'scrape_form': scrape_form
